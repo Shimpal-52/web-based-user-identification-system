@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | College ERP</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f6fc;
+            color: #1e293b;
+        }
+        .layout { display: flex; min-height: 100vh; }
+        .sidebar {
+            width: 245px;
+            flex-shrink: 0;
+            background: #12336b;
+            color: white;
+            padding: 25px 16px;
+        }
+        .brand { font-size: 21px; font-weight: bold; margin: 0 10px 8px; }
+        .subtitle { font-size: 12px; color: #cbdaf5; margin: 0 10px 30px; }
+        .nav-link {
+            display: block;
+            padding: 13px 12px;
+            margin: 5px 0;
+            border-radius: 8px;
+            color: #e2eaf9;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .nav-link.active, .nav-link:hover { background: #28539a; color: white; }
+        .main { flex: 1; min-width: 0; }
+        .topbar {
+            background: white;
+            padding: 20px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #e5eaf2;
+        }
+        .topbar h2 { margin: 0; font-size: 20px; }
+        .user { font-size: 14px; color: #475569; }
+        .content { padding: 28px; }
+        .welcome { margin-bottom: 24px; }
+        .welcome h1 { margin: 0 0 8px; font-size: 26px; }
+        .welcome p { margin: 0; color: #64748b; }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+        .card {
+            background: white;
+            border: 1px solid #e6ebf3;
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 4px 14px #0f172a08;
+        }
+        .card-label { color: #64748b; font-size: 14px; }
+        .number { font-size: 30px; font-weight: bold; margin-top: 13px; }
+        .section-title { margin: 30px 0 15px; font-size: 19px; }
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+        }
+        .action {
+            display: block;
+            padding: 20px;
+            background: white;
+            border: 1px solid #e6ebf3;
+            border-radius: 12px;
+            color: #1d4ed8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .action span {
+            display: block;
+            color: #64748b;
+            font-size: 13px;
+            font-weight: normal;
+            margin-top: 8px;
+        }
+        .logout-form { margin-top: 28px; }
+        .logout {
+            background: #dc2626;
+            color: white;
+            border: 0;
+            border-radius: 8px;
+            padding: 11px 15px;
+            cursor: pointer;
+        }
+        @media (max-width: 800px) {
+            .layout { display: block; }
+            .sidebar { width: 100%; padding: 16px; }
+            .sidebar nav { display: flex; flex-wrap: wrap; }
+            .subtitle { margin-bottom: 12px; }
+            .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .content { padding: 20px; }
+        }
+        @media (max-width: 480px) {
+            .cards, .actions { grid-template-columns: 1fr; }
+            .topbar { padding: 16px; align-items: flex-start; flex-direction: column; }
+            .welcome h1 { font-size: 22px; }
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="brand">College ERP</div>
+        <p class="subtitle">User Identification System</p>
+        <nav>
+            <a class="nav-link active" href="{% url 'admin_dashboard' %}">Dashboard</a>
+            <a class="nav-link" href="/django-admin/">Django Management</a>
+        </nav>
+        <form class="logout-form" method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="logout" type="submit">Logout</button>
+        </form>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <h2>Admin Dashboard</h2>
+            <div class="user">Signed in as <strong>{{ request.user.username }}</strong></div>
+        </header>
+
+        <section class="content">
+            <div class="welcome">
+                <h1>Welcome, Administrator!</h1>
+                <p>Manage your college's users and academic system from one place.</p>
+            </div>
+
+            <div class="cards">
+                <div class="card">
+                    <div class="card-label">Total Users</div>
+                    <div class="number">{{ total_users }}</div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Teachers</div>
+                    <div class="number">{{ total_teachers }}</div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Students</div>
+                    <div class="number">{{ total_students }}</div>
+                </div>
+            </div>
+
+            <h3 class="section-title">Quick Management</h3>
+            <div class="actions">
+                <a class="action" href="/django-admin/auth/user/">
+                    Manage User Accounts
+                    <span>Create, search and update user accounts.</span>
+                </a>
+                <a class="action" href="/django-admin/core/userprofile/">
+                    Manage User Roles
+                    <span>Assign Admin, Teacher or Student roles.</span>
+                </a>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

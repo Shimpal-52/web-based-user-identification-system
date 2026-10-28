@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Student Dashboard | College ERP</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Arial, sans-serif; background: #f3f6fc; color: #1e293b; }
+        header { background: #12336b; color: white; padding: 20px 28px; }
+        header h1 { margin: 0; font-size: 23px; }
+        header p { margin-bottom: 0; color: #dbeafe; }
+        main { max-width: 1100px; margin: auto; padding: 28px 20px; }
+        .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+        .card { padding: 22px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; }
+        .card h3 { color: #64748b; font-size: 14px; font-weight: normal; }
+        .card p { font-size: 23px; font-weight: bold; }
+        .panel { margin-top: 24px; padding: 22px; background: white; border-radius: 12px; }
+        .panel a { color: #1d4ed8; }
+        button { background: #dc2626; color: white; border: 0; padding: 11px 16px; border-radius: 8px; cursor: pointer; }
+        @media(max-width: 650px) { .cards { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>College ERP — Student Portal</h1>
+        <p>Welcome, {{ request.user.username }}</p>
+    </header>
+    <main>
+        <h2>Student Dashboard</h2>
+        <p>Your academic information at a glance.</p>
+        <section class="cards">
+            <div class="card">
+                <h3>Attendance</h3>
+                <p>View records</p>
+            </div>
+            <div class="card">
+                <h3>Examination Results</h3>
+                <p>View marks</p>
+            </div>
+            <div class="card">
+                <h3>Study Materials</h3>
+                <p>View resources</p>
+            </div>
+        </section>
+        <section class="panel">
+            <h3>Student Services</h3>
+            <p>Timetable, attendance, results and study materials will be connected to your academic records in the next stage.</p>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

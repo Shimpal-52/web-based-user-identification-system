@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College ERP | Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eaf2ff, #f8fbff);
+            color: #1e293b;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            padding: 32px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 12px 40px rgba(30, 64, 175, 0.12);
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: grid;
+            place-items: center;
+            border-radius: 16px;
+            background: #2563eb;
+            color: white;
+            font-size: 27px;
+            font-weight: bold;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 24px;
+        }
+
+        p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        label {
+            display: block;
+            margin: 18px 0 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: 2px solid #bfdbfe;
+            border-color: #2563eb;
+        }
+
+        .password-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .password-row input {
+            flex: 1;
+            min-width: 0;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            border-radius: 9px;
+            padding: 12px 15px;
+            font-size: 14px;
+        }
+
+        .show-btn {
+            background: #eaf2ff;
+            color: #1d4ed8;
+        }
+
+        .login-btn {
+            width: 100%;
+            margin-top: 24px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .login-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .message {
+            padding: 11px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            background: #fff1f2;
+            color: #be123c;
+            font-size: 14px;
+        }
+
+        .footer {
+            margin-top: 22px;
+            text-align: center;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="login-card">
+
+        <header class="brand">
+            <div class="logo">C</div>
+            <h1>College ERP</h1>
+            <p>Web-Based User Identification System</p>
+        </header>
+
+        {% for message in messages %}
+            <div class="message" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <label for="username">Username</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Enter your username"
+                autocomplete="username"
+                required
+                autofocus
+            >
+
+            <label for="password">Password</label>
+
+            <div class="password-row">
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <button
+                    type="button"
+                    class="show-btn"
+                    id="togglePassword"
+                >
+                    Show
+                </button>
+            </div>
+
+            <button type="submit" class="login-btn">
+                Login
+            </button>
+        </form>
+
+        <div class="footer">
+            Secure access for authorized college users
+        </div>
+
+    </main>
+
+    <script>
+        const passwordInput = document.getElementById("password");
+        const toggleButton = document.getElementById("togglePassword");
+
+        toggleButton.addEventListener("click", function () {
+            const isHidden = passwordInput.type === "password";
+
+            passwordInput.type = isHidden ? "text" : "password";
+            toggleButton.textContent = isHidden ? "Hide" : "Show";
+        });
+    </script>
+</body>
+</html>
