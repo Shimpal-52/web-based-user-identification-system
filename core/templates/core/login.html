@@ -1,12 +1,23 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>College ERP | Login</title>
+    <title>College ERP | Secure Login</title>
 
     <style>
+        :root {
+            --navy: #10243e;
+            --blue: #2563eb;
+            --blue-hover: #1d4ed8;
+            --gold: #d4a84f;
+            --background: #f3f6fb;
+            --text: #1e293b;
+            --muted: #64748b;
+            --border: #dce4ef;
+            --white: #ffffff;
+        }
+
         * {
             box-sizing: border-box;
         }
@@ -14,204 +25,607 @@
         body {
             margin: 0;
             min-height: 100vh;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--background);
+            color: var(--text);
             display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #eaf2ff, #f8fbff);
-            color: #1e293b;
+            flex-direction: column;
         }
 
-        .login-card {
+        .topbar {
             width: 100%;
-            max-width: 420px;
-            padding: 32px;
-            background: white;
-            border-radius: 18px;
-            box-shadow: 0 12px 40px rgba(30, 64, 175, 0.12);
+            min-height: 82px;
+            padding: 16px 7%;
+            background: var(--navy);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            box-shadow: 0 4px 18px rgba(16, 36, 62, 0.12);
         }
 
-        .brand {
-            text-align: center;
-            margin-bottom: 25px;
+        .college-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
         }
 
-        .logo {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 15px;
+        .college-logo {
+            width: 48px;
+            height: 48px;
+            border: 2px solid var(--gold);
+            border-radius: 12px;
             display: grid;
             place-items: center;
-            border-radius: 16px;
-            background: #2563eb;
-            color: white;
-            font-size: 27px;
+            font-size: 23px;
+            font-weight: 800;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+
+        .college-name {
+            margin: 0;
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .college-subtitle {
+            margin: 5px 0 0;
+            font-size: 12px;
+            color: #cbd5e1;
+        }
+
+        .portal-label {
+            font-size: 13px;
+            color: #e2e8f0;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .login-layout {
+            width: 100%;
+            max-width: 960px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(16, 36, 62, 0.10);
+            border: 1px solid #e6ebf2;
+        }
+
+        .welcome-panel {
+            padding: 50px 42px;
+            background:
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(59, 130, 246, 0.25),
+                    transparent 35%
+                ),
+                linear-gradient(145deg, #10243e, #1c4168);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .welcome-tag {
+            display: inline-block;
+            width: fit-content;
+            padding: 8px 13px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(212, 168, 79, 0.45);
+            border-radius: 30px;
+            color: #f3d48e;
+            background: rgba(212, 168, 79, 0.09);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .welcome-panel h2 {
+            margin: 0 0 18px;
+            font-size: clamp(27px, 3vw, 36px);
+            line-height: 1.25;
+        }
+
+        .welcome-panel h2 span {
+            color: #f3d48e;
+        }
+
+        .welcome-description {
+            margin: 0;
+            max-width: 350px;
+            font-size: 14px;
+            line-height: 1.9;
+            color: #d3deec;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 28px 0 0;
+        }
+
+        .feature-list li {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #edf3fb;
+            font-size: 13px;
+        }
+
+        .feature-icon {
+            width: 28px;
+            height: 28px;
+            display: grid;
+            place-items: center;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.10);
+            color: #f3d48e;
             font-weight: bold;
         }
 
-        h1 {
-            margin: 0 0 8px;
-            font-size: 24px;
+        .login-panel {
+            padding: 40px 42px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        p {
-            color: #64748b;
-            font-size: 14px;
-            line-height: 1.5;
+        .login-heading {
+            margin-bottom: 22px;
         }
 
+        .login-heading h1 {
+            margin: 0 0 9px;
+            font-size: 27px;
+            color: var(--navy);
+        }
+
+        .login-heading p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .role-label,
         label {
             display: block;
-            margin: 18px 0 8px;
-            font-size: 14px;
-            font-weight: 600;
+            margin-bottom: 9px;
+            font-size: 13px;
+            font-weight: 650;
+            color: #334155;
         }
 
-        input {
-            width: 100%;
-            padding: 13px;
-            border: 1px solid #cbd5e1;
+        .role-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .role-option {
+            position: relative;
+            margin: 0;
+        }
+
+        .role-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .role-option span {
+            display: block;
+            text-align: center;
+            padding: 11px 5px;
+            border: 1px solid var(--border);
             border-radius: 9px;
-            font-size: 15px;
+            background: #fbfcfe;
+            color: #334155;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .role-option input:checked + span {
+            border-color: var(--blue);
+            background: #eff6ff;
+            color: #1d4ed8;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+        }
+
+        .role-option input:focus-visible + span {
+            outline: 3px solid #93c5fd;
+        }
+
+        .field-group {
+            margin-bottom: 17px;
+        }
+
+        .field-group label {
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            display: block;
+            width: 100%;
+            height: 46px;
+            padding: 0 14px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: #fbfcfe;
+            color: var(--text);
+            font-size: 14px;
+            font-family: inherit;
         }
 
         input:focus {
-            outline: 2px solid #bfdbfe;
-            border-color: #2563eb;
+            outline: none;
+            border-color: var(--blue);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.10);
         }
 
-        .password-row {
+        .password-wrapper {
             display: flex;
             gap: 8px;
         }
 
-        .password-row input {
+        .password-wrapper input {
             flex: 1;
             min-width: 0;
         }
 
-        button {
-            cursor: pointer;
-            border: none;
-            border-radius: 9px;
-            padding: 12px 15px;
-            font-size: 14px;
-        }
-
         .show-btn {
-            background: #eaf2ff;
-            color: #1d4ed8;
+            padding: 0 13px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: #f1f5f9;
+            color: #334155;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
         }
 
         .login-btn {
             width: 100%;
-            margin-top: 24px;
-            background: #2563eb;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
+            min-height: 49px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 9px;
+            background: var(--blue);
+            color: var(--white);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
         }
 
         .login-btn:hover {
-            background: #1d4ed8;
+            background: var(--blue-hover);
+            transform: translateY(-1px);
         }
 
         .message {
-            padding: 11px;
-            margin-bottom: 12px;
-            border-radius: 8px;
+            margin-bottom: 14px;
+            padding: 11px 13px;
+            border: 1px solid #fecdd3;
+            border-radius: 9px;
             background: #fff1f2;
             color: #be123c;
-            font-size: 14px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .message.success {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+            color: #166534;
+        }
+
+        .message.warning {
+            background: #fffbeb;
+            border-color: #fde68a;
+            color: #92400e;
+        }
+
+        .register-link {
+            margin-top: 21px;
+            text-align: center;
+            padding-top: 17px;
+            border-top: 1px solid #edf1f6;
+        }
+
+        .register-link p {
+            margin: 0 0 12px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .register-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 9px;
+        }
+
+        .register-btn {
+            display: inline-block;
+            padding: 11px 8px;
+            border: 1px solid #1e3a8a;
+            border-radius: 8px;
+            color: #1e3a8a;
+            background: #fff;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .register-btn:hover {
+            background: #1e3a8a;
+            color: #fff;
+        }
+
+        .security-note {
+            margin-top: 17px;
+            padding-top: 14px;
+            border-top: 1px solid #edf1f6;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.7;
         }
 
         .footer {
-            margin-top: 22px;
+            padding: 18px 20px;
             text-align: center;
-            font-size: 12px;
             color: #64748b;
+            font-size: 11px;
+            line-height: 1.7;
         }
 
-        @media (max-width: 480px) {
-            .login-card {
-                padding: 24px;
+        .footer strong {
+            color: #334155;
+        }
+
+        @media (max-width: 760px) {
+            .topbar {
+                padding: 14px 20px;
+            }
+
+            .portal-label {
+                display: none;
+            }
+
+            .main-content {
+                padding: 25px 16px;
+            }
+
+            .login-layout {
+                max-width: 470px;
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-panel {
+                padding: 30px 28px;
+            }
+
+            .login-panel {
+                padding: 32px 28px;
+            }
+
+            .feature-list {
+                margin-top: 18px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .college-name {
+                font-size: 16px;
+            }
+
+            .college-logo {
+                width: 42px;
+                height: 42px;
+            }
+
+            .welcome-panel,
+            .login-panel {
+                padding-left: 22px;
+                padding-right: 22px;
+            }
+
+            .role-options {
+                gap: 5px;
+            }
+
+            .role-option span {
+                font-size: 11px;
             }
         }
     </style>
 </head>
 
 <body>
-    <main class="login-card">
 
-        <header class="brand">
-            <div class="logo">C</div>
-            <h1>College ERP</h1>
-            <p>Web-Based User Identification System</p>
-        </header>
-
-        {% for message in messages %}
-            <div class="message" role="alert">
-                {{ message }}
-            </div>
-        {% endfor %}
-
-        <form method="post">
-            {% csrf_token %}
-
-            <label for="username">Username</label>
-            <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Enter your username"
-                autocomplete="username"
-                required
-                autofocus
-            >
-
-            <label for="password">Password</label>
-
-            <div class="password-row">
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Enter your password"
-                    autocomplete="current-password"
-                    required
-                >
-
-                <button
-                    type="button"
-                    class="show-btn"
-                    id="togglePassword"
-                >
-                    Show
-                </button>
-            </div>
-
-            <button type="submit" class="login-btn">
-                Login
-            </button>
-        </form>
-
-        <div class="footer">
-            Secure access for authorized college users
+<header class="topbar">
+    <div class="college-brand">
+        <div class="college-logo">C</div>
+        <div>
+            <h2 class="college-name">COLLEGE ERP</h2>
+            <p class="college-subtitle">Campus Management Portal</p>
         </div>
+    </div>
 
-    </main>
+    <div class="portal-label">
+        STUDENT &nbsp; | &nbsp; FACULTY &nbsp; | &nbsp; ADMIN
+    </div>
+</header>
 
-    <script>
-        const passwordInput = document.getElementById("password");
-        const toggleButton = document.getElementById("togglePassword");
+<main class="main-content">
+    <div class="login-layout">
 
-        toggleButton.addEventListener("click", function () {
-            const isHidden = passwordInput.type === "password";
+        <section class="welcome-panel">
+            <div class="welcome-tag">Digital Campus Portal</div>
 
-            passwordInput.type = isHidden ? "text" : "password";
-            toggleButton.textContent = isHidden ? "Hide" : "Show";
-        });
-    </script>
+            <h2>
+                Welcome to Your<br>
+                <span>College ERP</span>
+            </h2>
+
+            <p class="welcome-description">
+                One secure platform to access your academic information,
+                campus resources and institutional services.
+            </p>
+
+            <ul class="feature-list">
+                <li><span class="feature-icon">✓</span>Centralized Academic Management</li>
+                <li><span class="feature-icon">✓</span>Student and Faculty Portal</li>
+                <li><span class="feature-icon">✓</span>Secure Role-Based Access</li>
+            </ul>
+        </section>
+
+        <section class="login-panel">
+
+            <div class="login-heading">
+                <h1>Sign In</h1>
+                <p>Select your account type and enter your credentials.</p>
+            </div>
+
+            {% for message in messages %}
+                <div class="message{% if message.tags %} {{ message.tags }}{% endif %}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+
+                <span class="role-label">Sign in as</span>
+
+                <div class="role-options">
+                    <label class="role-option">
+                        <input type="radio" name="role" value="STUDENT" checked>
+                        <span>Student</span>
+                    </label>
+
+                    <label class="role-option">
+                        <input type="radio" name="role" value="TEACHER">
+                        <span>Faculty</span>
+                    </label>
+
+                    <label class="role-option">
+                        <input type="radio" name="role" value="ADMIN">
+                        <span>Admin</span>
+                    </label>
+                </div>
+
+                <div class="field-group">
+                    <label for="username">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your username"
+                        autocomplete="username"
+                        required
+                        autofocus
+                    >
+                </div>
+
+                <div class="field-group">
+                    <label for="password">Password</label>
+
+                    <div class="password-wrapper">
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="show-btn"
+                            id="togglePassword"
+                            aria-controls="password"
+                            aria-pressed="false"
+                        >
+                            Show
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Sign In to Portal &rarr;
+                </button>
+            </form>
+
+            <div class="register-link">
+                <p>Don't have an account? Create one here.</p>
+
+                <div class="register-buttons">
+                    <a
+                        href="{% url 'register' %}?role=STUDENT"
+                        class="register-btn"
+                    >
+                        Create Student Account
+                    </a>
+
+                    <a
+                        href="{% url 'register' %}?role=TEACHER"
+                        class="register-btn"
+                    >
+                        Create Faculty Account
+                    </a>
+                </div>
+            </div>
+
+            <div class="security-note">
+                Secure access for authorized college users only.
+                Admin accounts are created by the administrator.
+            </div>
+
+        </section>
+    </div>
+</main>
+
+<footer class="footer">
+    <strong>College ERP</strong> &nbsp;|&nbsp;
+    Web-Based User Identification System
+    <br>
+    &copy; {% now "Y" %} College ERP. All rights reserved.
+</footer>
+
+<script>
+    const passwordInput = document.getElementById("password");
+    const toggleButton = document.getElementById("togglePassword");
+
+    toggleButton.addEventListener("click", function () {
+        const isHidden = passwordInput.type === "password";
+
+        passwordInput.type = isHidden ? "text" : "password";
+        toggleButton.textContent = isHidden ? "Hide" : "Show";
+        toggleButton.setAttribute("aria-pressed", String(isHidden));
+    });
+</script>
+
 </body>
 </html>

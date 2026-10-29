@@ -45,8 +45,7 @@
             </div>
         </section>
         <section class="panel">
-            <h3>Student Services</h3>
-            <p>Timetable, attendance, results and study materials will be connected to your academic records in the next stage.</p>
+            
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
                 <button type="submit">Logout</button>

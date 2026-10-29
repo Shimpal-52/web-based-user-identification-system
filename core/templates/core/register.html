@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>College ERP | Create Account</title>
+
+    <style>
+        :root {
+            --navy: #10243e;
+            --blue: #2563eb;
+            --background: #f3f6fb;
+            --text: #1e293b;
+            --muted: #64748b;
+            --border: #dce4ef;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--background);
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: var(--navy);
+            color: white;
+            padding: 22px 7%;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .wrap {
+            flex: 1;
+            display: grid;
+            place-items: center;
+            padding: 35px 16px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            border: 1px solid #e6ebf2;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 20px 60px rgba(16, 36, 62, 0.1);
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            color: var(--navy);
+            font-size: 27px;
+        }
+
+        .sub {
+            margin: 0 0 23px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .field {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 13px;
+            font-weight: 650;
+        }
+
+        input,
+        select {
+            width: 100%;
+            min-height: 45px;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font: 14px "Segoe UI", Arial, sans-serif;
+            background: white;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px #dbeafe;
+        }
+
+        button {
+            width: 100%;
+            min-height: 47px;
+            border: 0;
+            border-radius: 8px;
+            background: var(--blue);
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .message {
+            padding: 10px 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background: #fff1f2;
+            color: #be123c;
+            font-size: 13px;
+        }
+
+        .errors {
+            color: #be123c;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .help {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.5;
+            margin-top: 5px;
+        }
+
+        .help ul {
+            padding-left: 20px;
+        }
+
+        .bottom {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        a {
+            color: #1d4ed8;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 18px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    COLLEGE ERP &nbsp; | &nbsp; Campus Management Portal
+</header>
+
+<main class="wrap">
+    <section class="card">
+
+        <h1>Create Account</h1>
+
+        <p class="sub">
+            Register your Student or Faculty account to access the College ERP portal.
+        </p>
+
+        {% for message in messages %}
+            <div class="message" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+
+            <div class="field">
+                <label for="role">Account Type</label>
+
+                <select id="role" name="role" required>
+                    <option
+                        value="STUDENT"
+                        {% if selected_role == "STUDENT" %}selected{% endif %}
+                    >
+                        Student
+                    </option>
+
+                    <option
+                        value="TEACHER"
+                        {% if selected_role == "TEACHER" %}selected{% endif %}
+                    >
+                        Faculty
+                    </option>
+                </select>
+            </div>
+
+            {% for field in form %}
+                <div class="field">
+
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field }}
+
+                    {% if field.help_text %}
+                        <div class="help">
+                            {{ field.help_text|safe }}
+                        </div>
+                    {% endif %}
+
+                    {% for error in field.errors %}
+                        <div class="errors">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+            {% endfor %}
+
+            {% for error in form.non_field_errors %}
+                <div class="errors">
+                    {{ error }}
+                </div>
+            {% endfor %}
+
+            <button type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+        <div class="bottom">
+            Already have an account?
+            <a href="{% url 'login' %}">Sign In</a>
+        </div>
+
+    </section>
+</main>
+
+<footer>
+    &copy; {% now "Y" %} College ERP. All rights reserved.
+</footer>
+
+</body>
+</html>
