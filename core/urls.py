@@ -25,6 +25,21 @@ urlpatterns = [
         views.student_dashboard,
         name="student_dashboard"
     ),
+    path(
+        "attendance/",
+        views.attendance_view,
+        name="attendance"
+    ),
+    path(
+        "results/",
+        views.results_view,
+        name="results"
+    ),
+    path(
+        "study-materials/",
+        views.study_materials_view,
+        name="study_materials"
 
+    ),
     path("logout/", views.logout_view, name="logout"),
 ]

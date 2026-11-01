@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Study Materials | College ERP</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f6fc;
+            color: #1e293b;
+        }
+
+        header {
+            background: #12336b;
+            color: white;
+            padding: 20px 28px;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: auto;
+            padding: 28px 20px;
+        }
+
+        .panel {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+        }
+
+        .material-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 18px;
+            margin-top: 16px;
+            background: #fff;
+        }
+
+        .material-card h3 {
+            margin-top: 0;
+            color: #12336b;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 18px;
+            color: #1d4ed8;
+            text-decoration: none;
+        }
+
+        .notice {
+            color: #64748b;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>College ERP — Study Materials</h1>
+        <p>Welcome, {{ request.user.username }}</p>
+    </header>
+
+    <main>
+        <a class="back" href="{% url 'student_dashboard' %}">
+            ← Back to Dashboard
+        </a>
+
+        <section class="panel">
+            <h2>Study Materials</h2>
+
+            <p class="notice">
+                Course-wise study resources will be available here.
+            </p>
+
+            <div class="material-card">
+                <h3>DBMS</h3>
+                <p>Database Management System study resources.</p>
+                <p class="notice">Study material has not been uploaded yet.</p>
+            </div>
+
+            <div class="material-card">
+                <h3>Python Programming</h3>
+                <p>Python programming notes and learning resources.</p>
+                <p class="notice">Study material has not been uploaded yet.</p>
+            </div>
+
+            <div class="material-card">
+                <h3>Digital Electronics</h3>
+                <p>Digital Electronics study resources.</p>
+                <p class="notice">Study material has not been uploaded yet.</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
